@@ -1,0 +1,12 @@
+SELECT detallesordenes.idDetalle as codigo,periodosAsignados.nombrePeriodo,
+IF(detallesordenes.dia =1,'Laborable',
+	IF(detallesordenes.dia =2,"Sabado","Domingo/Feriado") 
+)as Dia,
+horariosAtencion.horaInicio,
+horariosAtencion.horaFinal,
+(horariosAtencion.horaFinal-horariosAtencion.horaInicio) as TotalHoras,
+detallesordenes.fecha
+
+FROM `detallesordenes`
+LEFT JOIN horariosAtencion on detallesordenes.idHorario = horariosAtencion.idHorario
+JOIN periodosAsignados on detallesordenes.idPeriodo = periodosAsignados.idPeriodo
